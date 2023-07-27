@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useSnapshot } from "valtio";
 import { headContainerAnimation, headContentAnimation, headTextAnimation, slideAnimation } from "../config/motion";
-import threejsLogo from "../public/threejs.png";
 import state from "../store";
 import { CustomButton } from "../components";
 const Home = () => {
@@ -11,7 +10,7 @@ const Home = () => {
             {snap.intro && (
                 <motion.section className="home" {...slideAnimation("left")}>
                     <motion.header {...slideAnimation("down")}>
-                        <img src={threejsLogo} alt="logo" className="w-8 h-8 object-contain" />
+                        <img src="/threejs.png" alt="logo" className="w-8 h-8 object-contain" />
                     </motion.header>
 
                     <motion.div className="home-content" {...headContainerAnimation}>
