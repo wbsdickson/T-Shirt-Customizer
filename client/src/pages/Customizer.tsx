@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSnapshot } from "valtio";
 
-import config from "../config/config";
 import state from "../store";
-import { download } from "../assets";
-import { downloadCanvasToImage, reader } from "../config/helpers";
+import { reader } from "../config/helpers";
 import { EditorTabs, FilterTabs, DecalTypes } from "../config/constants";
 import { fadeAnimation, slideAnimation } from "../config/motion";
 import { AIPicker, ColorPicker, CustomButton, FilePicker, Tab } from "../components";
@@ -60,9 +58,13 @@ const Customizer = () => {
                 }),
             });
 
-            const data = await response.json();
-
-            handleDecals(type, `data:image/png;base64,${data.photo}`);
+            const { type: imageType, photo } = await response.json();
+            if (imageType === "b64") {
+                handleDecals(type, `data:image/png;base64,${photo}`);
+            }
+            if (imageType === "url") {
+                handleDecals(type, `${photo}`);
+            }
         } catch (error) {
             alert(error);
         } finally {
