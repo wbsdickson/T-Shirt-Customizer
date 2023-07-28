@@ -47,8 +47,7 @@ const Customizer = () => {
 
         try {
             setGeneratingImg(true);
-
-            const response = await fetch("http://localhost:8080/api/v1/dalle", {
+            const response = await fetch(`http://${import.meta.env.VITE_API_SERVER}/api/v1/dalle`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -63,6 +62,7 @@ const Customizer = () => {
                 handleDecals(type, `data:image/png;base64,${photo}`);
             }
             if (imageType === "url") {
+                alert("Oops, out of token, random image is generated");
                 handleDecals(type, `${photo}`);
             }
         } catch (error) {
